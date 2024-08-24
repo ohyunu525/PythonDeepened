@@ -27,9 +27,4 @@ sns.pointplot(data=train, x="hour", y="count", hue="dayofweek", ax=ax3)
 sns.pointplot(data=train, x="hour", y="count", hue="weather", ax=ax4)
 sns.pointplot(data=train, x="hour", y="count", hue="season", ax=ax5)
 
-#axes[0][0].set(ylabel='Count', title="Rental Amount")
-#axes[0][1].set(xlabel='Season', ylabel='Count', title="Rental Amount by Seasons")
-#axes[1][0].set(xlabel='Hour Of The Day', ylabel='Count', title="Rental Amount by Hour")
-#axes[1][1].set(xlabel='Working Day', ylabel='Count', title="Rental Amount d_on working days")
-
 plt.savefig("BicycleRentalAmountByPointPlot.png")
