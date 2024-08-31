@@ -43,7 +43,7 @@ sns.barplot(data=train, x="month", y="count", ax=ax2)
 fig, ax3 = plt.subplots(nrols=1, ncols=1)
 fig.set_size_inches(18, 4)
 
-sns.barplot(x="humidity", y="count", data=train, ax=ax3, color="purple")
+sns.barplot(data=train, x="humidity", y="count", ax=ax3)
 #sns.pointplot(data=train, x="hour", y="count", hue="weather", ax=ax4)
 #sns.pointplot(data=train, x="hour", y="count", hue="season", ax=ax5)
 
