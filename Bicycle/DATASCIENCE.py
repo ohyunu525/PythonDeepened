@@ -10,7 +10,14 @@ plt.style.use('ggplot')
 mpl.rcParams['axes.unicode_minus'] = False
 train = pd.read_csv("./train.csv", parse_dates=["datetime"])
 
-#train["year"] = train["datetime"].dt.year
+def concentrate_year_month(datetime):
+    return "{0}-{1}".format(datetime.year, datetime.month)
+
+train["year_month"] = train["datetime"].apply(concentrate_year_month)
+
+print(train.shape)
+
+print(train[["datetime", "year_month"]].head())
 #train["month"] = train["datetime"].dt.month
 #train["hour"] = train["datetime"].dt.hour
 #train["day"] = train["datetime"].dt.day
@@ -25,14 +32,18 @@ train = pd.read_csv("./train.csv", parse_dates=["datetime"])
 
 #mask = np.array(corrMatt)
 #mask[np.tril_indices_from(mask)] = False
-fig, (ax1, ax2, ax3) = plt.subplots(ncols=3)
-fig.set_size_inches(12, 5)
+fig, (ax1, ax2) = plt.subplots(nrols=1, ncols=2)
+fig.set_size_inches(18, 4)
 
 #sns.heatmap(corrMatt, mask=mask, vmax=8, square=True, annot=True)
 
-sns.regplot(x="temp", y="count", ax=ax1, data=train)
-sns.regplot(x="windspeed", y="count", data=train, ax=ax2, color="blue")
-sns.regplot(x="humidity", y="count", data=train, ax=ax3, color="purple")
+sns.barplot(data=train, x="year", y="count", ax=ax1)
+sns.barplot(data=train, x="month", y="count", ax=ax2)
+
+fig, ax3 = plt.subplots(nrols=1, ncols=1)
+fig.set_size_inches(18, 4)
+
+sns.barplot(x="humidity", y="count", data=train, ax=ax3, color="purple")
 #sns.pointplot(data=train, x="hour", y="count", hue="weather", ax=ax4)
 #sns.pointplot(data=train, x="hour", y="count", hue="season", ax=ax5)
 
@@ -41,4 +52,4 @@ sns.regplot(x="humidity", y="count", data=train, ax=ax3, color="purple")
 #axes[1][0].set(xlabel='Hour Of The Day', ylabel='Count', title="Rental Amount by Hour")
 #axes[1][1].set(xlabel='Working Day', ylabel='Count', title="Rental Amount d_on working days")
 
-plt.savefig("BicycleRentalAmountByRegPlot.png")
+#plt.savefig("BicycleRentalAmountByRegPlot.png")

@@ -8,7 +8,7 @@ from scipy import stats
 
 plt.style.use('ggplot')
 mpl.rcParams['axes.unicode_minus'] = False
-train = pd.read_csv("./train.csv", parse_dates=["datetime"])
+train = pd.read_csv("../train.csv", parse_dates=["datetime"])
 
 fig, (ax1, ax2, ax3) = plt.subplots(ncols=3)
 fig.set_size_inches(12, 5)

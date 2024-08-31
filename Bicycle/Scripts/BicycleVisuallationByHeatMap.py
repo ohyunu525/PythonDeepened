@@ -8,7 +8,7 @@ from scipy import stats
 
 plt.style.use('ggplot')
 mpl.rcParams['axes.unicode_minus'] = False
-train = pd.read_csv("./train.csv", parse_dates=["datetime"])
+train = pd.read_csv("../train.csv", parse_dates=["datetime"])
 
 corrMatt = train[["temp", "atemp", "casual", "registered", "humidity", "windspeed", "count"]]
 corrMatt = corrMatt.corr()
