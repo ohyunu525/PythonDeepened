@@ -36,30 +36,3 @@ sns.displot(np.log(trainWithoutOutliers["count"]), ax=axes[1][0])
 stats.probplot(np.log1p(trainWithoutOutliers["count"]), dist='norm', fit=True, plot=axes[1][1])
 
 plt.savefig("BicycleRentalAmountOutlierRemovedByDistPlotProbPlot.png")
-
-#fig, ax3 = plt.subplots(nrows=1, ncols=1)
-#fig.set_size_inches(18, 4)
-
-#sns.barplot(data=train, x="year_month", y="count", ax=ax3)
-
-#plt.savefig("BicycleRentalAmountByYear_MonthByBarPlot.png")
-
-#corrMatt = train[["temp", "atemp", "casual", "registered", "humidity", "windspeed", "count"]]
-#corrMatt = corrMatt.corr()
-#print(corrMatt)
-
-#mask = np.array(corrMatt)
-#mask[np.tril_indices_from(mask)] = False
-
-#sns.heatmap(corrMatt, mask=mask, vmax=8, square=True, annot=True)
-
-
-#print(train["dayofweek"].value_counts())
-
-#sns.pointplot(data=train, x="hour", y="count", hue="weather", ax=ax4)
-#sns.pointplot(data=train, x="hour", y="count", hue="season", ax=ax5)
-
-#axes[0][0].set(ylabel='Count', title="Rental Amount")
-#axes[0][1].set(xlabel='Season', ylabel='Count', title="Rental Amount by Seasons")
-#axes[1][0].set(xlabel='Hour Of The Day', ylabel='Count', title="Rental Amount by Hour")
-#axes[1][1].set(xlabel='Working Day', ylabel='Count', title="Rental Amount d_on working days")
