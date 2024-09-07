@@ -25,14 +25,14 @@ train["dayofweek"] = train["datetime"].dt.dayofweek
 
 train["year_month"] = train["datetime"].apply(concatenate_year_month)
 
-trainWithoutOutliers = train[nb.abs(train["count"]-train["count"].mean()) <= (3*train["count"].std())]
+trainWithoutOutliers = train[np.abs(train["count"]-train["count"].mean()) <= (3*train["count"].std())]
 
 figure, axes = plt.subplots(ncols=2, nrows=2)
 figure.set_size_inches(12, 10)
 
-sns.displot(train["count"], ax=axes[0][0])
+sns.histplot(train["count"], kde=True, ax=axes[0][0])
 stats.probplot(train["count"], dist='norm', fit=True, plot=axes[0][1])
-sns.displot(np.log(trainWithoutOutliers["count"]), ax=axes[1][0])
+sns.histplot(np.log(trainWithoutOutliers["count"]), kde=True, ax=axes[1][0])
 stats.probplot(np.log1p(trainWithoutOutliers["count"]), dist='norm', fit=True, plot=axes[1][1])
 
-plt.savefig("BicycleRentalAmountOutlierRemovedByDistPlotProbPlot.png")
+plt.savefig("BicycleRentalAmountOutlierRemovedByHistPlotProbPlot.png")
