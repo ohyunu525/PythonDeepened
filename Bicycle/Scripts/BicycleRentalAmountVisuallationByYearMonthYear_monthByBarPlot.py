@@ -13,7 +13,7 @@ def concatenate_year_month(datetime):
 
 plt.style.use('ggplot')
 mpl.rcParams['axes.unicode_minus'] = False
-train = pd.read_csv("../train.csv", parse_dates=["datetime"])
+train = pd.read_csv("../Sources/train.csv", parse_dates=["datetime"])
 
 train["year"] = train["datetime"].dt.year
 train["month"] = train["datetime"].dt.month
