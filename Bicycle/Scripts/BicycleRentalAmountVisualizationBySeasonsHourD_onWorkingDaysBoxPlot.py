@@ -30,4 +30,4 @@ axes[0][1].set(xlabel='Season', ylabel='Count', title="Rental Amount by Seasons"
 axes[1][0].set(xlabel='Hour Of The Day', ylabel='Count', title="Rental Amount by Hour")
 axes[1][1].set(xlabel='Working Day', ylabel='Count', title="Rental Amount d_on working days")
 
-plt.savefig("BicycleRentalAmountBySeasonsHourD_onWorkingDaysBoxPlot.png")
+plt.savefig("../OutPuts/BicycleRentalAmountBySeasonsHourD_onWorkingDaysBoxPlot.png")

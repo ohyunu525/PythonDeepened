@@ -31,11 +31,11 @@ fig.set_size_inches(18, 4)
 sns.barplot(data=train, x="year", y="count", ax=ax1)
 sns.barplot(data=train, x="month", y="count", ax=ax2)
 
-plt.savefig("BicycleRentalAmountByYearMonthByBarPlot.png")
+plt.savefig("../OutPuts/BicycleRentalAmountByYearMonthByBarPlot.png")
 
 fig, ax3 = plt.subplots(nrows=1, ncols=1)
 fig.set_size_inches(18, 4)
 
 sns.barplot(data=train, x="year_month", y="count", ax=ax3)
 
-plt.savefig("BicycleRentalAmountByYear_MonthByBarPlot.png")
+plt.savefig("../OutPuts/BicycleRentalAmountByYear+MonthByBarPlot.png")
