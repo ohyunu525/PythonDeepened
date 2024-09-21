@@ -4,7 +4,28 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
 import warnings
+import time
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import make_scorer
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestRegressor
+
+
+def rmsle(predicted_values, actual_values):
+    predicted_values = np.array(predicted_values)
+    actual_values = np.array(actual_values)
+
+    log_predict = np.log(predicted_values + 1)
+    log_actual = np.log(actual_values + 1)
+    difference = log_predict - log_actual
+    difference = np.square(difference)
+    mean_difference = difference.mean()
+    score = np.sqrt(mean_difference)
+
+    return score
+
+rmsle_scorer = make_scorer(rmsle)
 
 
 def predict_windspeed(data):
@@ -25,8 +46,7 @@ def predict_windspeed(data):
 
     predictWind0["windspeed"] = wind0Values
 
-    data = predictWindNot0.append(predictWind0)
-
+    data = pd.concat([predictWindNot0, predictWind0])
     data["windspeed"] = data["windspeed"].astype("float")
 
     data.reset_index(inplace=True)
@@ -62,18 +82,61 @@ test["dayofweek"] = test["datetime"].dt.dayofweek
 
 train = predict_windspeed(train)
 
-fig, ax1 = plt.subplots()
-fig.set_size_inches(18, 6)
+categorial_feature_names = ["season", "holiday", "workingday", "dayofweek", "weather", "month", "year", "hour"]
 
-plt.sca(ax1)
-plt.xticks(rotation=30, ha='right')
-axes[0].set(ylabel='Count', title="train windspeed")
-sns.countplot(data=train, x="windspeed", ax=ax1)
+for var in categorial_feature_names:
+    train[var] = train[var].astype("category")
+    test[var] = test[var].astype("category")
 
-plt.sca(ax1)
-plt.xticks(rotation=30, ha='right')
-axes[1].set(ylabel='Count', title="test windspeed")
-sns.countplot(data=test, x="windspeed", ax=ax1)
+feature_names = ["season", "weather", "temp", "atemp", "humidity", "windspeed", "year", "hour", "dayofweek", "holiday", "workingday"]
+
+X_train = train[feature_names]
+X_test = test[feature_names]
+
+label_name = "count"
+
+y_train = train[label_name]
+
+k_fold = KFold(n_splits=10, shuffle=True, random_state=0)
+
+model = RandomForestRegressor(n_estimators=100, n_jobs=-1, random_state=0)
+
+execution_time_start = time.time()
+start_time = time.localtime(execution_time_start)
+
+score = cross_val_score(model, X_train, y_train, cv=k_fold, scoring=rmsle_scorer)
+
+execution_time_end = time.time()
+end_time = time.localtime(execution_time_end)
+
+score = score.mean()
+execution_time = execution_time_end - execution_time_start
+
+print("Score= {0:.5f}".format(score))
+print(f"Start time: {time.strftime('%Y %m %d %H %M %S', start_time)}")
+print(f"End time: {time.strftime('%Y %m %d %H %M %S', end_time)}")
+print(f"Execution time: {execution_time:.2f} s")
+
+model.fit(X_train, y_train)
+
+predictions = model.predict(X_test)
+
+print(predictions.shape)
+print(predictions[0:10])
+
+fig, (ax1, ax2) = plt.subplots(ncols=2)
+fig.set_size_inches(12, 5)
+
+sns.distplot(y_train, ax=ax1, bins=50)
+ax1.set(title="train")
+
+sns.distplot(predictions, ax=ax2, bins=50)
+ax2.set(title="test")
+
+#plt.sca(axes[1])
+#plt.xticks(rotation=30, ha='right')
+#axes[1].set(ylabel='Count', title="test windspeed")
+#sns.countplot(data=test, x="windspeed", ax=axes[1])
 
 plt.savefig("../OutPuts/TrainTestWindSpeedByCountPlotRANDOMFOREST.png")
 
