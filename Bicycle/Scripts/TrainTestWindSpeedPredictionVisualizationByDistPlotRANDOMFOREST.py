@@ -133,11 +133,6 @@ ax1.set(title="train")
 sns.distplot(predictions, ax=ax2, bins=50)
 ax2.set(title="test")
 
-#plt.sca(axes[1])
-#plt.xticks(rotation=30, ha='right')
-#axes[1].set(ylabel='Count', title="test windspeed")
-#sns.countplot(data=test, x="windspeed", ax=axes[1] )
-
-plt.savefig("../OutPuts/TrainTestWindSpeedPredictionByCountPlotRANDOMFOREST.png")
+plt.savefig("../OutPuts/TrainTestWindSpeedPredictionByDistPlotRANDOMFOREST.png")
 
 #\[T]/
