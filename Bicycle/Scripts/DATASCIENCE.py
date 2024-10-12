@@ -142,4 +142,25 @@ IModel.fit(X_train, y_train_log)
 
 preds = IModel.predict(X_train)
 print("RMSLE Value For Linear Regression: ", rmsle(np.exp(y_train_log), np.exp(preds)))
+
+ridge_m_ = Ridge()
+ridge_params_ = { 'max_iter':[3000], 'alpha':[0.01, 0.1, 1, 2, 3, 4, 10, 30, 100, 200, 300, 400, 800, 900, 1000]}
+
+rmsle_scorer = metrics.make_scorer(rmsle, greater_is_better=False)
+
+grid_ridge_m = GridSearchCV(ridge_m_, ridge_params_, scoring= rmsle_scorer, cv=5)
+
+y_train_log = np.log1p(y_train)
+
+grid_ridge_m.fit(X_train, y_train_log)
+
+preds = grid_ridge_m.predict(X_train)
+
+print(grid_ridge_m.best_params_)
+
+print("RMSLE Value For Ridge Regression: ", rmsle(np.exp(y_train_log), np.exp(preds)))
+
+df = pd.DataFrame(grid_ridge_m.cv_results_)
+
+print(df.head())
 #\[T]/
