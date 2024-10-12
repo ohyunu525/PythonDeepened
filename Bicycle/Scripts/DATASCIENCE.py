@@ -10,8 +10,9 @@ from sklearn.metrics import make_scorer
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestRegressor
-
-
+from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.model_selection import GridSearchCV
+from sklearn import metrics
 def rmsle(predicted_values, actual_values):
     predicted_values = np.array(predicted_values)
     actual_values = np.array(actual_values)
@@ -133,11 +134,12 @@ ax1.set(title="train")
 sns.distplot(predictions, ax=ax2, bins=50)
 ax2.set(title="test")
 
-#plt.sca(axes[1])
-#plt.xticks(rotation=30, ha='right')
-#axes[1].set(ylabel='Count', title="test windspeed")
-#sns.countplot(data=test, x="windspeed", ax=axes[1] )
-
 plt.savefig("../OutPuts/TrainTestWindSpeedPredictionByCountPlotRANDOMFOREST.png")
 
+IModel = LinearRegression()
+y_train_log = np.log1p(y_train)
+IModel.fit(X_train, y_train_log)
+
+preds = IModel.predict(X_train)
+print("RMSLE Value For Linear Regression: ", rmsle(np.exp(y_train_log), np.exp(preds)))
 #\[T]/
