@@ -122,20 +122,6 @@ model.fit(X_train, y_train)
 
 predictions = model.predict(X_test)
 
-print(predictions.shape)
-print(predictions[0:10])
-
-fig, (ax1, ax2) = plt.subplots(ncols=2)
-fig.set_size_inches(12, 5)
-
-sns.distplot(y_train, ax=ax1, bins=50)
-ax1.set(title="train")
-
-sns.distplot(predictions, ax=ax2, bins=50)
-ax2.set(title="test")
-
-plt.savefig("../OutPuts/TrainTestWindSpeedPredictionByCountPlotRANDOMFOREST.png")
-
 IModel = LinearRegression()
 y_train_log = np.log1p(y_train)
 IModel.fit(X_train, y_train_log)
@@ -144,7 +130,7 @@ preds = IModel.predict(X_train)
 print("RMSLE Value For Linear Regression: ", rmsle(np.exp(y_train_log), np.exp(preds)))
 
 ridge_m_ = Ridge()
-ridge_params_ = { 'max_iter':[3000], 'alpha':[0.01, 0.1, 1, 2, 3, 4, 10, 30, 100, 200, 300, 400, 800, 900, 1000]}
+ridge_params_ = {'max_iter':[3000], 'alpha':[0.01, 0.1, 1, 2, 3, 4, 10, 30, 100, 200, 300, 400, 800, 900, 1000]}
 
 rmsle_scorer = metrics.make_scorer(rmsle, greater_is_better=False)
 
@@ -162,5 +148,14 @@ print("RMSLE Value For Ridge Regression: ", rmsle(np.exp(y_train_log), np.exp(pr
 
 df = pd.DataFrame(grid_ridge_m.cv_results_)
 
-print(df.head())
+df["alpha"] = df["params"].apply(lambda x:x["alpha"])
+df["rmsle"] = df["mean_test_score"].apply(lambda x:-x)
+
+fig,ax = plt.subplots()
+fig.set_size_inches(12, 5)
+plt.xticks(rotation=30, ha='right')
+sns.pointplot(data=df,x="alpha", y="rmsle", ax=ax)
+plt.savefig("../OutPuts/RmsleValueForRidgeRegressionByPointPlotRANDOMFOREST.png")
+
+
 #\[T]/
