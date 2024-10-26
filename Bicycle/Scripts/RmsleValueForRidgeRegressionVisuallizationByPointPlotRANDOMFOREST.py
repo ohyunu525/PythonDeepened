@@ -13,7 +13,12 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression, Ridge, Lasso
 from sklearn.model_selection import GridSearchCV
 from sklearn import metrics
-def rmsle(predicted_values, actual_values):
+
+
+def rmsle(predicted_values, actual_values, convert_exp=True):
+    if convert_exp:
+        predicted_values = np.exp(predicted_values)
+        actual_values = np.exp(actual_values)
     predicted_values = np.array(predicted_values)
     actual_values = np.array(actual_values)
 
@@ -26,7 +31,8 @@ def rmsle(predicted_values, actual_values):
 
     return score
 
-rmsle_scorer = make_scorer(rmsle)
+
+
 
 
 def predict_windspeed(data):
@@ -55,6 +61,7 @@ def predict_windspeed(data):
 
     return data
 
+
 #ProjectSettings
 warnings.filterwarnings('ignore')
 
@@ -63,6 +70,9 @@ mpl.rcParams['axes.unicode_minus'] = False
 train = pd.read_csv("../Sources/train.csv", parse_dates=["datetime"])
 
 test = pd.read_csv("../Sources/test.csv", parse_dates=["datetime"])
+
+pd.options.mode.chained_assignment = None
+
 
 #train&testIndexing
 train["year"] = train["datetime"].dt.year
@@ -89,7 +99,8 @@ for var in categorial_feature_names:
     train[var] = train[var].astype("category")
     test[var] = test[var].astype("category")
 
-feature_names = ["season", "weather", "temp", "atemp", "humidity", "windspeed", "year", "hour", "dayofweek", "holiday", "workingday"]
+feature_names = ["season", "weather", "temp", "atemp", "humidity", "windspeed", "year", "hour", "dayofweek", "holiday",
+                 "workingday"]
 
 X_train = train[feature_names]
 X_test = test[feature_names]
@@ -100,41 +111,12 @@ y_train = train[label_name]
 
 k_fold = KFold(n_splits=10, shuffle=True, random_state=0)
 
-model = RandomForestRegressor(n_estimators=100, n_jobs=-1, random_state=0)
-
-execution_time_start = time.time()
-start_time = time.localtime(execution_time_start)
-
-score = cross_val_score(model, X_train, y_train, cv=k_fold, scoring=rmsle_scorer)
-
-execution_time_end = time.time()
-end_time = time.localtime(execution_time_end)
-
-score = score.mean()
-execution_time = execution_time_end - execution_time_start
-
-print("Score= {0:.5f}".format(score))
-print(f"Start time: {time.strftime('%Y %m %d %H %M %S', start_time)}")
-print(f"End time: {time.strftime('%Y %m %d %H %M %S', end_time)}")
-print(f"Execution time: {execution_time:.2f} s")
-
-model.fit(X_train, y_train)
-
-predictions = model.predict(X_test)
-
-IModel = LinearRegression()
-y_train_log = np.log1p(y_train)
-IModel.fit(X_train, y_train_log)
-
-preds = IModel.predict(X_train)
-print("RMSLE Value For Linear Regression: ", rmsle(np.exp(y_train_log), np.exp(preds)))
-
 ridge_m_ = Ridge()
-ridge_params_ = {'max_iter':[3000], 'alpha':[0.01, 0.1, 1, 2, 3, 4, 10, 30, 100, 200, 300, 400, 800, 900, 1000]}
+ridge_params_ = {'max_iter': [3000], 'alpha': [0.01, 0.1, 1, 2, 3, 4, 10, 30, 100, 200, 300, 400, 800, 900, 1000]}
 
 rmsle_scorer = metrics.make_scorer(rmsle, greater_is_better=False)
 
-grid_ridge_m = GridSearchCV(ridge_m_, ridge_params_, scoring= rmsle_scorer, cv=5)
+grid_ridge_m = GridSearchCV(ridge_m_, ridge_params_, scoring=rmsle_scorer, cv=5)
 
 y_train_log = np.log1p(y_train)
 
@@ -144,18 +126,17 @@ preds = grid_ridge_m.predict(X_train)
 
 print(grid_ridge_m.best_params_)
 
-print("RMSLE Value For Ridge Regression: ", rmsle(np.exp(y_train_log), np.exp(preds)))
+print("RMSLE Value For Ridge Regression: ", rmsle(y_train_log, preds))
 
 df = pd.DataFrame(grid_ridge_m.cv_results_)
 
-df["alpha"] = df["params"].apply(lambda x:x["alpha"])
-df["rmsle"] = df["mean_test_score"].apply(lambda x:-x)
+df["alpha"] = df["params"].apply(lambda x: x["alpha"])
+df["rmsle"] = df["mean_test_score"].apply(lambda x: -x)
 
-fig,ax = plt.subplots()
+fig, ax = plt.subplots()
 fig.set_size_inches(12, 5)
 plt.xticks(rotation=30, ha='right')
-sns.pointplot(data=df,x="alpha", y="rmsle", ax=ax)
+sns.pointplot(data=df, x="alpha", y="rmsle", ax=ax)
 plt.savefig("../OutPuts/RmsleValueForRidgeRegressionByPointPlotRANDOMFOREST.png")
-
 
 #\[T]/
