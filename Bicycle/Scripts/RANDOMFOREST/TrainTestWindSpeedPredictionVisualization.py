@@ -133,6 +133,6 @@ ax1.set(title="train")
 sns.distplot(predictions, ax=ax2, bins=50)
 ax2.set(title="test")
 
-plt.savefig("../OutPuts/TrainTestWindSpeedPredictionByDistPlotRANDOMFOREST.png")
+plt.savefig("../OutPuts/TrainTestWindSpeedPrediction.png")
 
 #\[T]/

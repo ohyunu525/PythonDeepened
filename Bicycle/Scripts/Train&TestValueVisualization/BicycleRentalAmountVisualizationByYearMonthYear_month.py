@@ -38,4 +38,4 @@ fig.set_size_inches(18, 4)
 
 sns.barplot(data=train, x="year_month", y="count", ax=ax3)
 
-plt.savefig("../OutPuts/BicycleRentalAmountByYear+MonthByBarPlot.png")
+plt.savefig("../OutPuts/BicycleRentalAmountByYear+Month.png")

@@ -35,4 +35,4 @@ stats.probplot(train["count"], dist='norm', fit=True, plot=axes[0][1])
 sns.histplot(np.log(trainWithoutOutliers["count"]), kde=True, ax=axes[1][0])
 stats.probplot(np.log1p(trainWithoutOutliers["count"]), dist='norm', fit=True, plot=axes[1][1])
 
-plt.savefig("../OutPuts/BicycleRentalAmountOutlierRemovedByHistPlotProbPlot.png")
+plt.savefig("../OutPuts/BicycleRentalAmount(OutlierRemoved).png")

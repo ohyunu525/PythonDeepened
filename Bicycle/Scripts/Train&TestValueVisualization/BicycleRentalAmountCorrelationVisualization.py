@@ -20,4 +20,4 @@ fig, ax = plt.subplots()
 fig.set_size_inches(20, 10)
 sns.heatmap(corrMatt, mask=mask, vmax=8, square=True, annot=True)
 
-plt.savefig("../OutPuts/BicycleRentalAmountCorrelationByHeatMap.png")
+plt.savefig("../OutPuts/BicycleRentalAmountCorrelation.png")

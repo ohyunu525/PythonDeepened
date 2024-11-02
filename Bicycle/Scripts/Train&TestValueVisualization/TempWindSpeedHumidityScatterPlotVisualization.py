@@ -17,4 +17,4 @@ sns.regplot(x="temp", y="count", ax=ax1, data=train)
 sns.regplot(x="windspeed", y="count", data=train, ax=ax2, color="blue")
 sns.regplot(x="humidity", y="count", data=train, ax=ax3, color="purple")
 
-plt.savefig("../OutPuts/TempWindSpeedHumidityScatterPlotByRegPlot.png")
+plt.savefig("../OutPuts/TempWindSpeedHumidityScatterPlot.png")

@@ -41,6 +41,6 @@ plt.xticks(rotation=30, ha='right')
 axes[1].set(ylabel='Count', title="test windspeed")
 sns.countplot(data=test, x="windspeed", ax=axes[1])
 
-plt.savefig("../OutPuts/TrainTestWindSpeedByCountPlot.png")
+plt.savefig("../OutPuts/TrainTestWindSpeed.png")
 
 #\[T]/

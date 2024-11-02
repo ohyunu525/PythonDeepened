@@ -141,6 +141,6 @@ fig, ax = plt.subplots()
 fig.set_size_inches(12, 5)
 plt.xticks(rotation=30, ha='right')
 sns.pointplot(data=df, x="alpha", y="rmsle", ax=ax)
-plt.savefig("../OutPuts/RmsleValueForRidgeRegressionByPointPlotRANDOMFOREST.png")
+plt.savefig("../OutPuts/RmsleValueForRidgeRegression.png")
 
 #\[T]/

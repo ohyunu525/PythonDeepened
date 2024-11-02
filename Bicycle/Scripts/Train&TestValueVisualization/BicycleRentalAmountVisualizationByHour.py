@@ -27,4 +27,4 @@ sns.pointplot(data=train, x="hour", y="count", hue="dayofweek", ax=ax3)
 sns.pointplot(data=train, x="hour", y="count", hue="weather", ax=ax4)
 sns.pointplot(data=train, x="hour", y="count", hue="season", ax=ax5)
 
-plt.savefig("../OutPuts/BicycleRentalAmountByHourByPointPlot.png")
+plt.savefig("../OutPuts/BicycleRentalAmountByHour.png")
