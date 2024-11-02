@@ -63,9 +63,9 @@ warnings.filterwarnings('ignore')
 
 mpl.rcParams['axes.unicode_minus'] = False
 
-train = pd.read_csv("../Sources/train.csv", parse_dates=["datetime"])
+train = pd.read_csv("../../Sources/train.csv", parse_dates=["datetime"])
 
-test = pd.read_csv("../Sources/test.csv", parse_dates=["datetime"])
+test = pd.read_csv("../../Sources/test.csv", parse_dates=["datetime"])
 
 pd.options.mode.chained_assignment = None
 
