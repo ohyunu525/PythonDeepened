@@ -67,6 +67,8 @@ train = pd.read_csv("../Sources/train.csv", parse_dates=["datetime"])
 
 test = pd.read_csv("../Sources/test.csv", parse_dates=["datetime"])
 
+submission = pd.read_csv("../Sources/sampleSubmission.csv")
+
 pd.options.mode.chained_assignment = None
 
 plt.style.use('ggplot')
@@ -109,19 +111,9 @@ y_train = train[label_name]
 
 k_fold = KFold(n_splits=10, shuffle=True, random_state=0)
 
-rfModel = RandomForestRegressor(n_estimators=100)
-
 gbm = GradientBoostingRegressor(n_estimators=4000, alpha=0.01)
 
 y_train_log = np.log1p(y_train)
-
-rfModel.fit(X_train, y_train_log)
-
-preds = rfModel.predict(X_train)
-
-score = rmsle(y_train_log, preds)
-
-print("RMSLE Value For Random Forest: ", score)
 
 gbm.fit(X_train, y_train_log)
 
@@ -129,18 +121,11 @@ preds = gbm.predict(X_train)
 
 score = rmsle(y_train_log, preds)
 
-print("RMSLE Value For Gradient Boost: ", score)
-
 predsTest = gbm.predict(X_test)
 
-fig,(ax1,ax2)= plt.subplots(ncols=2)
+submission["count"] = np.exp(predsTest)
 
-fig.set_size_inches(12, 5)
+print(submission.shape)
 
-sns.distplot(y_train, ax=ax1, bins=50)
-
-sns.distplot(np.exp(predsTest), ax=ax2, bins=50)
-
-plt.savefig("../OutPuts/RmsleValueForRandomForest&GradientBoost.png")
-
+submission.to_csv("../OutPuts/Score_{0:.5f}_submission.csv".format(score), index=False)
 #\[T]/
