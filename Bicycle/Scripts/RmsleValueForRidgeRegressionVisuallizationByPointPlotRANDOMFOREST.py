@@ -73,6 +73,7 @@ test = pd.read_csv("../Sources/test.csv", parse_dates=["datetime"])
 
 pd.options.mode.chained_assignment = None
 
+plt.style.use('ggplot')
 
 #train&testIndexing
 train["year"] = train["datetime"].dt.year
