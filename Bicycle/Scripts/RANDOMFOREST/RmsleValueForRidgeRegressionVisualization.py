@@ -113,7 +113,10 @@ y_train = train[label_name]
 k_fold = KFold(n_splits=10, shuffle=True, random_state=0)
 
 ridge_m_ = Ridge()
-ridge_params_ = {'max_iter': [3000], 'alpha': [0.01, 0.1, 1, 2, 3, 4, 10, 30, 100, 200, 300, 400, 800, 900, 1000]}
+
+alpha = 1/np.array([0.01, 0.1, 1, 2, 3, 4, 10, 30, 100, 200, 300, 400, 800, 900, 1000])
+
+ridge_params_ = {'max_iter': [3000], 'alpha': alpha}
 
 rmsle_scorer = metrics.make_scorer(rmsle, greater_is_better=False)
 
