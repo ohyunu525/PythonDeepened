@@ -31,10 +31,6 @@ def rmsle(predicted_values, actual_values, convert_exp=True):
 
     return score
 
-
-
-
-
 def predict_windspeed(data):
     dataWind0 = data.loc[data["windspeed"] == 0]
     dataWindNot0 = data.loc[data["windspeed"] != 0]
@@ -60,7 +56,6 @@ def predict_windspeed(data):
     data.drop('index', inplace=True, axis=1)
 
     return data
-
 
 #ProjectSettings
 warnings.filterwarnings('ignore')
@@ -99,6 +94,8 @@ for var in categorial_feature_names:
     test[var] = test[var].astype("category")
 
 feature_names = ["season", "weather", "temp", "atemp", "humidity", "windspeed", "year", "hour", "dayofweek", "holiday", "workingday"]
+
+
 
 
 train = predict_windspeed(train)
