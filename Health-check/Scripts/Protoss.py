@@ -28,25 +28,44 @@ plt.rc("axes", unicode_minus=False)
 
 df = pd.read_csv("../Sources/NHIS_OPEN_GJ_2017_v1.1.csv", encoding="CP949")
 
-createDirectory("../Outputs/EntireDatas")
+createDirectory("../Outputs/CategoricalData")
 
-h1 = df.hist(figsize=(15, 15))
-plt.savefig("../Outputs/EntireDatas/EntireDatas_1")
-clearPlt()
+df_sample = df.sample(1000, random_state = 1)
 
-h2 = df.iloc[:, :12].hist(figsize=(15,15))
-plt.savefig("../Outputs/EntireDatas/EntireDatas_2")
-clearPlt()
+df["음주여부"].value_counts().plot.bar()
+plt.savefig("../Outputs/CategoricalData/CategoricalData_1")
 
-h3 = df.iloc[ :, 12:24].hist(figsize=(15,15), bins=100)
-plt.savefig("../Outputs/EntireDatas/EntireDatas_3")
-clearPlt()
+sns.countplot(x="음주여부", data=df)
+plt.savefig("../Outputs/CategoricalData/CategoricalData_2")
 
-h4 = df.iloc[ :, 24:].hist(figsize=(15,15), bins=100)
-plt.savefig("../Outputs/EntireDatas/EntireDatas_4")
-clearPlt()
+sns.countplot(x="음주여부", data=df, hue="성별코드")
+plt.savefig("../Outputs/CategoricalData/CategoricalData_3")
 
-h5 = df.iloc[ :, 24:].hist(figsize=(15,15), bins=10)
-plt.savefig("../Outputs/EntireDatas/EntireDatas_5")
+sns.set(font_scale=1.5, font="Malgun Gothic")
+sns.countplot(x="음주여부", data=df, hue="성별코드")
+plt.savefig("../Outputs/CategoricalData/CategoricalData_4")
 
+sns.countplot(data=df, x="연령대코드(5세단위)")
+plt.savefig("../Outputs/CategoricalData/CategoricalData_5")
+
+sns.countplot(data=df, x="연령대코드(5세단위)", hue="음주여부")
+plt.savefig("../Outputs/CategoricalData/CategoricalData_6")
+
+plt.figure(figsize=(15, 4))
+sns.countplot(data=df, x="신장(5cm단위)")
+plt.savefig("../Outputs/CategoricalData/CategoricalData_7")
+
+plt.figure(figsize=(15, 4))
+sns.countplot(data=df, x="체중(5kg단위)")
+plt.savefig("../Outputs/CategoricalData/CategoricalData_8")
+
+plt.figure(figsize=(15, 4))
+sns.countplot(data=df, x="신장(5cm단위)", hue="성별코드")
+plt.savefig("../Outputs/CategoricalData/CategoricalData_9")
+
+plt.figure(figsize=(15, 4))
+sns.countplot(data=df, x="체중(5kg단위)", hue="성별코드")
+plt.savefig("../Outputs/CategoricalData/CategoricalData_10")
+
+sns.barplot(data=df, x="연령대코드(5세단위)")
 #\[T]/
