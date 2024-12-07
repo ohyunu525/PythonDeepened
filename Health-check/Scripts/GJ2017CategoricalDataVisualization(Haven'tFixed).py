@@ -26,7 +26,7 @@ plt.rc("axes", unicode_minus=False)
 
 #Palettes
 SexPalette = ['#99d8ea', '#ffaec9']
-BoolPalette = ['#ff9723', '#5599aa']
+BoolPalette = ['#ff0000', '#0000ff']
 
 plt.rcParams['axes.facecolor'] = 'white'
 plt.rcParams['figure.facecolor'] = 'white'
