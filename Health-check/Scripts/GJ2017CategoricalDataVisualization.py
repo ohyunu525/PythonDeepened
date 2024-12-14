@@ -123,4 +123,55 @@ plt.figure(figsize=(12, 6))
 sns.barplot(data=df, x="연령대코드(5세단위)", y="체중(5Kg단위)", hue="성별코드", errorbar=None, palette=sns.color_palette(SexPalette))
 plt.savefig("../Outputs/CategoricalData/CategoricalData_18")
 clearPlt()
+
+plt.figure(figsize=(12, 6))
+sns.barplot(data=df, x="연령대코드(5세단위)", y="체중(5Kg단위)", hue="음주여부", errorbar=None, palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_19")
+clearPlt()
+
+plt.figure(figsize=(12, 6))
+sns.barplot(data=df, x="연령대코드(5세단위)", y="체중(5Kg단위)", hue="음주여부", ci="sd", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_20")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.lineplot(data=df, x="연령대코드(5세단위)", y="체중(5Kg단위)", hue="성별코드", palette=sns.color_palette(SexPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_21")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.lineplot(data=df_sample, x="연령대코드(5세단위)", y="체중(5Kg단위)", hue="성별코드", palette=sns.color_palette(SexPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_22")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.lineplot(data=df_sample, x="연령대코드(5세단위)", y="체중(5Kg단위)", hue="성별코드", ci="sd", palette=sns.color_palette(SexPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_23")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.lineplot(data=df_sample, x="연령대코드(5세단위)", y="신장(5Cm단위)", hue="성별코드", ci="sd", palette=sns.color_palette(SexPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_24")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.barplot(data=df_sample, x="연령대코드(5세단위)", y="신장(5Cm단위)", hue="음주여부", ci="sd", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_25")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.barplot(data=df_sample, x="연령대코드(5세단위)", y="신장(5Cm단위)", hue="음주여부", ci="sd", palette=sns.color_palette(BoolPalette))
+sns.pointplot(data=df_sample, x="연령대코드(5세단위)", y="신장(5Cm단위)", hue="음주여부", ci="sd", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_26")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.barplot(data=df_sample, x="연령대코드(5세단위)", y="신장(5Cm단위)", hue="성별코드", ci="sd", palette=sns.color_palette(SexPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_27")
+clearPlt()
+#여기부터계속
+plt.figure(figsize=(15, 6))
+sns.barplot(data=df_sample, x="연령대코드(5세단위)", y="혈색소", hue="음주여부", ci=None, palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_28")
+clearPlt()
 #\[T]/
