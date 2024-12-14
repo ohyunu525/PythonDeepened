@@ -24,6 +24,8 @@ else:
 
 plt.rc("axes", unicode_minus=False)
 
+SAVEPATH = "../Outputs/WeightByHeight"
+
 #Palettes
 SexPalette = ['#99d8ea', '#ffaec9']
 BoolPalette = ['#ff9723', '#5599aa']
@@ -35,10 +37,11 @@ plt.rcParams['savefig.edgecolor'] = 'white'
 
 df = pd.read_csv("../Sources/NHIS_OPEN_GJ_2017_v1.1.csv", encoding="CP949")
 
-#createDirectory("../Outputs/CategoricalData")
+createDirectory(SAVEPATH)
 
 df_sample = df.sample(1000, random_state=1)
 
+plt.figure(15, 4)
 
 
 #\[T]/
