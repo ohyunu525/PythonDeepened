@@ -40,7 +40,7 @@ df = pd.read_csv("../Sources/NHIS_OPEN_GJ_2017_v1.1.csv", encoding="CP949")
 createDirectory("../Outputs/CategoricalData")
 
 df_sample = df.sample(1000, random_state=1)
-
+"""
 df["음주여부"].value_counts().plot.bar()
 plt.savefig("../Outputs/CategoricalData/CategoricalData_1")
 clearPlt()
@@ -166,12 +166,73 @@ plt.savefig("../Outputs/CategoricalData/CategoricalData_26")
 clearPlt()
 
 plt.figure(figsize=(15, 6))
-sns.barplot(data=df_sample, x="연령대코드(5세단위)", y="신장(5Cm단위)", hue="성별코드", ci="sd", palette=sns.color_palette(SexPalette))
+sns.pointplot(data=df_sample, x="연령대코드(5세단위)", y="신장(5Cm단위)", hue="성별코드", ci="sd", palette=sns.color_palette(SexPalette))
 plt.savefig("../Outputs/CategoricalData/CategoricalData_27")
 clearPlt()
 #여기부터계속
 plt.figure(figsize=(15, 6))
-sns.barplot(data=df_sample, x="연령대코드(5세단위)", y="혈색소", hue="음주여부", ci=None, palette=sns.color_palette(BoolPalette))
+sns.lineplot(data=df, x="연령대코드(5세단위)", y="혈색소", hue="음주여부", ci=None, palette=sns.color_palette(BoolPalette))
 plt.savefig("../Outputs/CategoricalData/CategoricalData_28")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.boxplot(data=df, x="신장(5Cm단위)", y="체중(5Kg단위)", hue="성별코드", palette=sns.color_palette(SexPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_29")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.violinplot(data=df, x="신장(5Cm단위)", y="체중(5Kg단위)", hue="음주여부", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_30")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.violinplot(data=df, x="신장(5Cm단위)", y="체중(5Kg단위)", hue="음주여부", split=True, palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_31")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.violinplot(data=df, x="연령대코드(5세단위)", y="혈색소", hue="음주여부", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_32")
+clearPlt()
+
+plt.figure(figsize=(15, 6))
+sns.violinplot(data=df, x="연령대코드(5세단위)", y="혈색소", hue="음주여부", split=True, palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_33")
+clearPlt()
+
+plt.figure(figsize=(12, 4))
+sns.swarmplot(data=df_sample, x="신장(5Cm단위)", y="체중(5Kg단위)", hue="음주여부", size=2, palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_34")
+clearPlt()
+
+plt.figure(figsize=(12, 4))
+sns.swarmplot(data=df_sample, x="연령대코드(5세단위)", y="혈색소", hue="음주여부", size=2, palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_35")
+clearPlt()
+"""
+plt.figure(figsize=(8, 7))
+sns.scatterplot(data=df_sample, x="(혈청지오티)AST", y="(혈청지오티)ALT", hue="음주여부", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_36")
+clearPlt()
+
+
+plt.figure(figsize=(8, 7))
+sns.scatterplot(data=df_sample, x="(혈청지오티)AST", y="(혈청지오티)ALT", hue="음주여부", size="체중(5Kg단위)", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_37")
+clearPlt()
+
+plt.figure(figsize=(8, 7))
+sns.scatterplot(data=df_sample, x="(혈청지오티)AST", y="(혈청지오티)ALT", hue="허리둘레")
+plt.savefig("../Outputs/CategoricalData/CategoricalData_38")
+clearPlt()
+
+plt.figure(figsize=(8, 7))
+sns.lmplot(data=df_sample, x="신장(5Cm단위)", y="체중(5Kg단위)", hue="음주여부", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_39")
+clearPlt()
+
+plt.figure(figsize=(8, 7))
+sns.lmplot(data=df_sample, x="신장(5Cm단위)", y="체중(5Kg단위)", hue="성별코드", col='음주여부', palette=sns.color_palette(SexPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_40")
 clearPlt()
 #\[T]/
