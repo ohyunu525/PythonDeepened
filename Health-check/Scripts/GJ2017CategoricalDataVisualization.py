@@ -40,7 +40,7 @@ df = pd.read_csv("../Sources/NHIS_OPEN_GJ_2017_v1.1.csv", encoding="CP949")
 createDirectory("../Outputs/CategoricalData")
 
 df_sample = df.sample(1000, random_state=1)
-"""
+
 df["음주여부"].value_counts().plot.bar()
 plt.savefig("../Outputs/CategoricalData/CategoricalData_1")
 clearPlt()
@@ -209,7 +209,7 @@ plt.figure(figsize=(12, 4))
 sns.swarmplot(data=df_sample, x="연령대코드(5세단위)", y="혈색소", hue="음주여부", size=2, palette=sns.color_palette(BoolPalette))
 plt.savefig("../Outputs/CategoricalData/CategoricalData_35")
 clearPlt()
-"""
+
 plt.figure(figsize=(8, 7))
 sns.scatterplot(data=df_sample, x="(혈청지오티)AST", y="(혈청지오티)ALT", hue="음주여부", palette=sns.color_palette(BoolPalette))
 plt.savefig("../Outputs/CategoricalData/CategoricalData_36")
@@ -235,4 +235,44 @@ plt.figure(figsize=(8, 7))
 sns.lmplot(data=df_sample, x="신장(5Cm단위)", y="체중(5Kg단위)", hue="성별코드", col='음주여부', palette=sns.color_palette(SexPalette))
 plt.savefig("../Outputs/CategoricalData/CategoricalData_40")
 clearPlt()
+
+plt.figure(figsize=(8, 7))
+sns.lmplot(data=df_sample, x="신장(5Cm단위)", y="체중(5Kg단위)", hue="음주여부", col='성별코드', palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_41")
+clearPlt()
+
+plt.figure(figsize=(8, 7))
+sns.lmplot(data=df_sample, x="수축기혈압", y="이완기혈압", hue="음주여부", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_42")
+clearPlt()
+
+plt.figure(figsize=(8, 7))
+sns.lmplot(data=df_sample, x="(혈청지오티)AST", y="(혈청지오티)ALT", hue="음주여부", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_43")
+clearPlt()
+
+df_ASLT = df_sample[(df_sample["(혈청지오티)AST"] < 400) & (df_sample["(혈청지오티)ALT"] < 400)]
+
+plt.figure(figsize=(8, 7))
+sns.lmplot(data=df_ASLT, x="(혈청지오티)AST", y="(혈청지오티)ALT", hue="음주여부", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_44")
+clearPlt()
+
+df_ASLT_high = df[(df["(혈청지오티)AST"] >= 400) | (df_sample["(혈청지오티)AST"] >= 400)]
+sns.lmplot(data=df_ASLT_high, x="(혈청지오티)AST", y="(혈청지오티)ALT", hue="음주여부", palette=sns.color_palette(BoolPalette))
+plt.savefig("../Outputs/CategoricalData/CategoricalData_45")
+clearPlt()
+
+df_ASLT_high_8000 = df_ASLT_high[df_ASLT_high["(혈청지오티)AST"] > 8000]
+
+df_chol = df.loc[df["총콜레스테롤"].notnull(), "총콜레스테롤"]
+
+sns.displot(df_chol)
+plt.savefig("../Outputs/CategoricalData/CategoricalData_46")
+clearPlt()
+
+sns.displot(df_chol, bins=100)
+plt.savefig("../Outputs/CategoricalData/CategoricalData_47")
+clearPlt()
+
 #\[T]/
